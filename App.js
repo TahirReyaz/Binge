@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import Navigator from './navigation/Navigator';
 import * as Fonts from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import { enableScreens } from 'react-native-screens'
+
+enableScreens();
 
 const fetchFonts = () => {
   return Fonts.loadAsync({
