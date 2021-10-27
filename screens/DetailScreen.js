@@ -1,5 +1,7 @@
 import React from 'react'
-import { View, Text, Button, StyleSheet } from 'react-native'
+import { View, Text, Button } from 'react-native'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import CustomHeaderButton from '../components/CustomHeaderButton'
 import defaultStyles from '../constants/default-styles'
 import { ANIMES } from '../data/dummy-data'
 
@@ -22,12 +24,15 @@ DetailScreen.navigationOptions = navData => {
   const anime = ANIMES.find(anime => anime.id === animeId);
 
   return {
-    headerTitle: anime.title
+    headerTitle: anime.title,
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        <Item title='Fav' iconName='ios-star' onPress={() => {
+          console.log('Faved')
+        }}/>
+      </HeaderButtons>
+    )
   }
 }
-
-const styles = StyleSheet.create({
-  
-});
 
 export default DetailScreen;
