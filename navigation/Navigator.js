@@ -11,6 +11,13 @@ import FavsScreen from '../screens/FavsScreen';
 import Colors from '../constants/Colors';
 import { Platform } from 'react-native';
 
+const defStackNavOpts = {
+    headerStyle: {
+      backgroundColor: Colors.primary
+    },
+    headerTintColor: '#FFF'
+  };
+
 const StackNavigator = createStackNavigator({
   Genres: {
     screen: GenreScreen,
@@ -22,12 +29,15 @@ const StackNavigator = createStackNavigator({
   Details: DetailScreen
 }, 
 {
-  defaultNavigationOptions: {
-    headerStyle: {
-      backgroundColor: Colors.primary
-    },
-    headerTintColor: '#FFF'
-  }
+  defaultNavigationOptions: defStackNavOpts
+});
+
+const FavStackNavigator = createStackNavigator({
+  FavsList: FavsScreen,
+  FavDetail: DetailScreen
+},
+{
+  defaultNavigationOptions: defStackNavOpts
 });
 
 const tabScreenConfig = {
@@ -41,7 +51,7 @@ const tabScreenConfig = {
     }
   },
   Favourites: {
-    screen: FavsScreen,
+    screen: FavStackNavigator,
     navigationOptions: {
       tabBarIcon: tabInfo => {
         return <Ionicons name='ios-star' size={25} color={tabInfo.tintColor} />
