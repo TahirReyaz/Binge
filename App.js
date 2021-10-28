@@ -4,8 +4,16 @@ import Navigator from './navigation/Navigator';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { enableScreens } from 'react-native-screens'
+import { createStore, combineReducers } from 'redux'
+import animesReducer from './store/reducers/animes'
+import { Provider } from 'react-redux'
 
 enableScreens();
+
+const rootReducer = combineReducers({
+  animes: animesReducer
+});
+const store = createStore(rootReducer)
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -28,6 +36,8 @@ export default function App() {
   }
 
   return (
-    <Navigator />
+    <Provider store={store}>
+      <Navigator />
+    </Provider>
   );
 }
