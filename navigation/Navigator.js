@@ -3,11 +3,13 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import { Ionicons } from '@expo/vector-icons';
 import GenreScreen from '../screens/GenreScreen';
 import DetailScreen from '../screens/DetailScreen';
 import ListScreen from '../screens/ListScreen';
 import FavsScreen from '../screens/FavsScreen';
+import FiltersScreen from '../screens/FiltersScreen'
 import Colors from '../constants/Colors';
 import { Platform } from 'react-native';
 
@@ -16,7 +18,7 @@ const defStackNavOpts = {
       backgroundColor: Colors.primary
     },
     headerTintColor: '#FFF'
-  };
+};
 
 const StackNavigator = createStackNavigator({
   Genres: {
@@ -73,4 +75,29 @@ const TabNavigator =
       }
     })
 
-export default createAppContainer(TabNavigator);
+const FiltersNavigator = createStackNavigator({
+  Filters: FiltersScreen
+},
+{
+  defStackNavOpts
+});
+
+const MainNavigator = createDrawerNavigator({
+  Favs: {
+    screen: TabNavigator,
+    navigationOptions: {
+      drawerLabel: 'Animes'
+    }
+  },
+  Filters: FiltersNavigator
+},
+{
+  contentOptions: {
+    activeTintColor: Colors.secondary,
+    labelStyle: {
+      fontFamily: 'open-sans-bold'
+    }
+  }
+});
+
+export default createAppContainer(MainNavigator);
