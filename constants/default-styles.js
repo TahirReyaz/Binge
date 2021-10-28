@@ -6,9 +6,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  // openSans: {
-  //   fontFamily: 'open-sans'
-  // },
+  openSans: {
+    fontFamily: 'open-sans'
+  },
   // title: {
   //   fontSize: 20,
   //   marginVertical: 10,

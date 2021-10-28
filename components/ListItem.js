@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity, Platform, ImageBackground, TouchableNativeFeedback, Text, StyleSheet, TextComponent } from 'react-native'
+import defaultStyles from '../constants/default-styles';
 
 const ListItem = props => {
   let TouchableComp = TouchableOpacity;
@@ -19,8 +20,8 @@ const ListItem = props => {
             </ImageBackground>
           </View>
           <View style={styles.details}>
-            <Text>{props.type.toUpperCase()}</Text>
-            <Text>{props.nbEps}</Text>
+            <Text style={defaultStyles.openSans}>{props.type.toUpperCase()}</Text>
+            <Text style={defaultStyles.openSans}>{props.nbEps}</Text>
           </View>
         </View>
       </TouchableComp>
