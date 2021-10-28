@@ -11,11 +11,17 @@ import ListScreen from '../screens/ListScreen';
 import FavsScreen from '../screens/FavsScreen';
 import FiltersScreen from '../screens/FiltersScreen'
 import Colors from '../constants/Colors';
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 
 const defStackNavOpts = {
     headerStyle: {
       backgroundColor: Colors.primary
+    },
+    headerTitleStyle: {
+      fontFamily: 'open-sans-bold'
+    },
+    headerBackTitleStyle: {
+      fontFamily: 'open-sans'
     },
     headerTintColor: '#FFF'
 };
@@ -49,7 +55,11 @@ const tabScreenConfig = {
       tabBarIcon: tabInfo => {
         return <Ionicons name='play-circle' size={25} color={tabInfo.tintColor} />
       },
-      tabBarColor: Colors.primary
+      tabBarColor: Colors.primary,
+      tabBarLabel: 
+        Platform.OS === 'android' 
+        ? <Text style={{fontFamily: 'open-sans-bold'}}>Anime</Text> 
+        : 'Anime'
     }
   },
   Favourites: {
@@ -58,7 +68,11 @@ const tabScreenConfig = {
       tabBarIcon: tabInfo => {
         return <Ionicons name='ios-star' size={25} color={tabInfo.tintColor} />
       },
-      tabBarColor: Colors.secondary
+      tabBarColor: Colors.secondary,
+      tabBarLabel: 
+        Platform.OS === 'android' 
+        ? <Text style={{fontFamily: 'open-sans-bold'}}>Favorites</Text> 
+        : 'Favorites'
     }
   }
 }
@@ -71,7 +85,10 @@ const TabNavigator =
     })
   : createBottomTabNavigator( tabScreenConfig, {
       tabBarOptions: {
-        activeTintColor: Colors.secondary
+        activeTintColor: Colors.secondary,
+        labelStyle: {
+          fontFamily: 'open-sans'
+        }
       }
     })
 
@@ -79,7 +96,7 @@ const FiltersNavigator = createStackNavigator({
   Filters: FiltersScreen
 },
 {
-  defStackNavOpts
+  defaultNavigationOptions : defStackNavOpts
 });
 
 const MainNavigator = createDrawerNavigator({
