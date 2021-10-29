@@ -1,15 +1,32 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, FlatList, StyleSheet } from 'react-native'
 import defaultStyles from '../constants/default-styles'
 import Colors from '../constants/Colors'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../components/CustomHeaderButton'
+import { useSelector } from 'react-redux'
+import ListItem from '../components/ListItem'
 
-const FavsScreen = () => {
+const FavsScreen = props => {
+  const availableAnimes = useSelector(state => state.animes.favAnimes)
+
+  const renderAnime = itemData => {
+    return (
+      <ListItem 
+        listData={itemData.item}
+        onSelect={() => {
+          props.navigation.navigate({
+            routeName: 'FavDetail', 
+            params: {animeId: itemData.item.id, title: itemData.item.title}
+          })
+        }} 
+      />
+    );
+  }  
 
   return (
     <View style={defaultStyles.screen}>
-      <Text>Favourites Screen</Text>
+      <FlatList data={availableAnimes} renderItem={renderAnime} style={{width: '100%'}} />
     </View>
   );
 }

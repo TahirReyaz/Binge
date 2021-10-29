@@ -13,15 +13,15 @@ const ListItem = props => {
       <TouchableComp onPress={props.onSelect}>
         <View style={styles.gridItem}>
           <View style={styles.header}>
-            <ImageBackground source={{uri: props.thumbnail}} style={styles.bgImg}>
+            <ImageBackground source={{uri: props.listData.thumbnail}} style={styles.bgImg}>
               <View style={styles.titleContainer}>
-                <Text style={styles.title} numberOfLines={1}>{props.title}</Text>
+                <Text style={styles.title} numberOfLines={1}>{props.listData.title}</Text>
               </View>
             </ImageBackground>
           </View>
           <View style={styles.details}>
-            <Text style={defaultStyles.openSans}>{props.type.toUpperCase()}</Text>
-            <Text style={defaultStyles.openSans}>{props.nbEps}</Text>
+            <Text style={defaultStyles.openSans}>{props.listData.type.toUpperCase()}</Text>
+            <Text style={defaultStyles.openSans}>{props.listData.nbEps}</Text>
           </View>
         </View>
       </TouchableComp>

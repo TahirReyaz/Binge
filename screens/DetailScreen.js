@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../components/CustomHeaderButton'
+import { useSelector, useDispatch } from 'react-redux'
+import { toggleFavorite } from '../store/actions/animes'
 import defaultStyles from '../constants/default-styles'
-import { ANIMES } from '../data/dummy-data'
 
 const DetailScreen = props => {
   const animeId = props.navigation.getParam('animeId');
-  const anime = ANIMES.find(anime => anime.id === animeId);
+  const availableAnimes = useSelector(state => state.animes.allAnimes)
+  const anime = availableAnimes.find(anime => anime.id === animeId);
+
+  const dispatch = useDispatch();
+
+  const toggleFavoriteHandler = useCallback(() => {
+    dispatch(toggleFavorite(animeId));
+  }, [dispatch, animeId]);
+
+  useEffect(() => {
+    props.navigation.setParams({toggleFav: toggleFavoriteHandler})
+  }, [toggleFavoriteHandler])
 
   return (
     <ScrollView>
@@ -39,16 +51,14 @@ const DetailScreen = props => {
 }
 
 DetailScreen.navigationOptions = navData => {
-  const animeId = navData.navigation.getParam('animeId');
-  const anime = ANIMES.find(anime => anime.id === animeId);
+  const animeTitle = navData.navigation.getParam('title');
+  const toggleFavorite = navData.navigation.getParam('toggleFav');
 
   return {
-    headerTitle: anime.title,
+    headerTitle: animeTitle,
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        <Item title='Fav' iconName='ios-star' onPress={() => {
-          console.log('Faved')
-        }}/>
+        <Item title='Fav' iconName='ios-star' onPress={toggleFavorite}/>
       </HeaderButtons>
     )
   }

@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, FlatList, Text, Button, StyleSheet } from 'react-native'
+import { View, FlatList, StyleSheet } from 'react-native'
 import defaultStyles from '../constants/default-styles'
-import { GENRES, ANIMES } from '../data/dummy-data'
+import { GENRES } from '../data/dummy-data'
+import { useSelector } from 'react-redux'
 import ListItem from '../components/ListItem'
-// const malScraper = require('mal-scraper')
+// import malScraper from 'mal-scraper'
 // const search = malScraper.search
 
 // let animes = [{}];
@@ -19,19 +20,17 @@ import ListItem from '../components/ListItem'
 
 const ListScreen = props => {
   const genreId = props.navigation.getParam('genreId');
-  const AnimeList = ANIMES.filter(anime => anime.genreId === genreId);
+  const availableAnimes = useSelector(state => state.animes.filteredAnimes)
+  const AnimeList = availableAnimes.filter(anime => anime.genreId === genreId);
 
   const renderAnime = itemData => {
     return (
       <ListItem 
-        title={itemData.item.title} 
-        type={itemData.item.type}
-        nbEps={itemData.item.nbEps}
-        thumbnail={itemData.item.thumbnail}
+        listData={itemData.item}
         onSelect={() => {
           props.navigation.navigate({
             routeName: 'Details', 
-            params: {animeId: itemData.item.id}
+            params: {animeId: itemData.item.id, title: itemData.item.title}
           })
         }} 
       />
