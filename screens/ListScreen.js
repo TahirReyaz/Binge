@@ -22,15 +22,21 @@ const ListScreen = props => {
   const genreId = props.navigation.getParam('genreId');
   const availableAnimes = useSelector(state => state.animes.filteredAnimes)
   const AnimeList = availableAnimes.filter(anime => anime.genreId === genreId);
+  const favAnimes = useSelector(state => state.animes.favAnimes);
 
   const renderAnime = itemData => {
+    const isFavAnime = favAnimes.some(anime => anime.id === itemData.item.id)
     return (
       <ListItem 
         listData={itemData.item}
         onSelect={() => {
           props.navigation.navigate({
             routeName: 'Details', 
-            params: {animeId: itemData.item.id, title: itemData.item.title}
+            params: {
+              animeId: itemData.item.id,
+              title: itemData.item.title,
+              isFav: isFavAnime
+            }
           })
         }} 
       />

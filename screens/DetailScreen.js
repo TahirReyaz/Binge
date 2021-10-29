@@ -9,6 +9,9 @@ import defaultStyles from '../constants/default-styles'
 const DetailScreen = props => {
   const animeId = props.navigation.getParam('animeId');
   const availableAnimes = useSelector(state => state.animes.allAnimes)
+  const currentAnimeIsFav = useSelector(state => 
+    state.animes.favAnimes.some(anime => anime.id === animeId)
+  );
   const anime = availableAnimes.find(anime => anime.id === animeId);
 
   const dispatch = useDispatch();
@@ -20,6 +23,10 @@ const DetailScreen = props => {
   useEffect(() => {
     props.navigation.setParams({toggleFav: toggleFavoriteHandler})
   }, [toggleFavoriteHandler])
+
+  useEffect(() => {
+    props.navigation.setParams({isFav: currentAnimeIsFav})
+  }, [currentAnimeIsFav])
 
   return (
     <ScrollView>
@@ -53,12 +60,13 @@ const DetailScreen = props => {
 DetailScreen.navigationOptions = navData => {
   const animeTitle = navData.navigation.getParam('title');
   const toggleFavorite = navData.navigation.getParam('toggleFav');
+  const isFav = navData.navigation.getParam('isFav');
 
   return {
     headerTitle: animeTitle,
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        <Item title='Fav' iconName='ios-star' onPress={toggleFavorite}/>
+        <Item title='Fav' iconName={isFav ? 'ios-star' : 'ios-star-outline'} onPress={toggleFavorite}/>
       </HeaderButtons>
     )
   }

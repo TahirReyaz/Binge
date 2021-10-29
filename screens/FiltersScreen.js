@@ -58,7 +58,7 @@ FiltersScreen.navigationOptions = navData => {
     ),
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        <Item title='Fav' iconName='ios-save' onPress={ navData.navigation.getParams('save')}/>
+        <Item title='Fav' iconName='ios-save' onPress={ navData.navigation.getParam('save')}/>
       </HeaderButtons>
     )
   }

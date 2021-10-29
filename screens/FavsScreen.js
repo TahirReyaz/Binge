@@ -11,13 +11,18 @@ const FavsScreen = props => {
   const availableAnimes = useSelector(state => state.animes.favAnimes)
 
   const renderAnime = itemData => {
+    const isFavAnime = availableAnimes.some(anime => anime.id === itemData.item.id)
     return (
       <ListItem 
         listData={itemData.item}
         onSelect={() => {
           props.navigation.navigate({
             routeName: 'FavDetail', 
-            params: {animeId: itemData.item.id, title: itemData.item.title}
+            params: {
+              animeId: itemData.item.id,
+              title: itemData.item.title,
+              isFav: isFavAnime
+            }
           })
         }} 
       />
