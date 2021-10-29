@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, StyleSheet } from 'react-native'
+import { View, Text, FlatList, StyleSheet } from 'react-native'
 import defaultStyles from '../constants/default-styles'
 import Colors from '../constants/Colors'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
@@ -9,6 +9,14 @@ import ListItem from '../components/ListItem'
 
 const FavsScreen = props => {
   const availableAnimes = useSelector(state => state.animes.favAnimes)
+
+  if(availableAnimes.length === 0 || !availableAnimes) {
+    return(
+      <View style={defaultStyles.screen}>
+        <Text>No Favorite animes found. Start Adding some!!!</Text>
+      </View>
+    )
+  }
 
   const renderAnime = itemData => {
     const isFavAnime = availableAnimes.some(anime => anime.id === itemData.item.id)
@@ -30,7 +38,7 @@ const FavsScreen = props => {
   }  
 
   return (
-    <View style={defaultStyles.screen}>
+    <View>
       <FlatList data={availableAnimes} renderItem={renderAnime} style={{width: '100%'}} />
     </View>
   );
@@ -51,9 +59,5 @@ FavsScreen.navigationOptions = navData => {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  
-});
 
 export default FavsScreen;

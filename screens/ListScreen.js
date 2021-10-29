@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, StyleSheet } from 'react-native'
+import { View, Text, FlatList, StyleSheet } from 'react-native'
 import defaultStyles from '../constants/default-styles'
 import { GENRES } from '../data/dummy-data'
 import { useSelector } from 'react-redux'
@@ -23,6 +23,14 @@ const ListScreen = props => {
   const availableAnimes = useSelector(state => state.animes.filteredAnimes)
   const AnimeList = availableAnimes.filter(anime => anime.genreId === genreId);
   const favAnimes = useSelector(state => state.animes.favAnimes);
+
+  if(availableAnimes.length === 0 || !availableAnimes) {
+    return (
+      <View style={defaultStyles.screen}>
+        <Text>No animes found. Maybe check your filters</Text>
+      </View>
+    )
+  }
 
   const renderAnime = itemData => {
     const isFavAnime = favAnimes.some(anime => anime.id === itemData.item.id)

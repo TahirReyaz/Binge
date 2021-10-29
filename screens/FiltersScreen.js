@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { View, Text, StyleSheet, Switch } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../components/CustomHeaderButton'
+import { useDispatch } from 'react-redux'
+import { setFilters } from '../store/actions/animes'
 import Colors from '../constants/Colors'
 
 const FilterSwitch = props => {
@@ -19,14 +21,27 @@ const FiltersScreen = props => {
   const [isTv, setIsTv] = useState(false);
   const [isMovie, setIsMovie] = useState(false);
   const [isOva, setIsOva] = useState(false);
+  const [isOna, setIsOna] = useState(false);
+  const [isSpecial, setIsSpecial] = useState(false);
+  const [isMusic, setIsMusic] = useState(false);
+  const [isUnknown, setIsUnknown] = useState(false);
+
+  const dispatch = useDispatch();
+
 
   const saveFilters = useCallback(() => {
     const filters = {
       tv: isTv,
       movie: isMovie,
-      ova: isOva
+      ova: isOva,
+      ona: isOna,
+      special: isSpecial,
+      music: isMusic,
+      unknown: isUnknown
     }
-  }, [isTv, isMovie, isOva]);
+
+    dispatch(setFilters(filters))
+  }, [isTv, isMovie, isOva, isOna, isSpecial, isMusic, isUnknown, dispatch]);
 
   useEffect(() => {
     navigation.setParams({save: saveFilters})
@@ -38,6 +53,10 @@ const FiltersScreen = props => {
       <FilterSwitch label="TV" state={isTv} onChange={newValue => setIsTv(newValue)} />
       <FilterSwitch label="MOVIE" state={isMovie} onChange={newValue => setIsMovie(newValue)} />
       <FilterSwitch label="OVA" state={isOva} onChange={newValue => setIsOva(newValue)} />
+      <FilterSwitch label="ONA" state={isOna} onChange={newValue => setIsOna(newValue)} />
+      <FilterSwitch label="Special" state={isSpecial} onChange={newValue => setIsSpecial(newValue)} />
+      <FilterSwitch label="Music" state={isMusic} onChange={newValue => setIsMusic(newValue)} />
+      <FilterSwitch label="Unknown" state={isUnknown} onChange={newValue => setIsUnknown(newValue)} />
     </View>
   );
 }
