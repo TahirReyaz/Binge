@@ -24,7 +24,7 @@ const ListScreen = props => {
   const AnimeList = availableAnimes.filter(anime => anime.genreId === genreId);
   const favAnimes = useSelector(state => state.animes.favAnimes);
 
-  if(availableAnimes.length === 0 || !availableAnimes) {
+  if(AnimeList.length === 0 || !AnimeList) {
     return (
       <View style={defaultStyles.screen}>
         <Text>No animes found. Maybe check your filters</Text>
@@ -52,7 +52,7 @@ const ListScreen = props => {
   }  
 
   return (
-    <View style={defaultStyles.screen}>
+    <View>
       <FlatList data={AnimeList} renderItem={renderAnime} style={{width: '100%'}} />
     </View>
   );

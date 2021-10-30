@@ -18,13 +18,13 @@ const FilterSwitch = props => {
 const FiltersScreen = props => {
   const { navigation } = props;
 
-  const [isTv, setIsTv] = useState(false);
-  const [isMovie, setIsMovie] = useState(false);
-  const [isOva, setIsOva] = useState(false);
-  const [isOna, setIsOna] = useState(false);
-  const [isSpecial, setIsSpecial] = useState(false);
-  const [isMusic, setIsMusic] = useState(false);
-  const [isUnknown, setIsUnknown] = useState(false);
+  const [isTv, setIsTv] = useState(true);
+  const [isMovie, setIsMovie] = useState(true);
+  const [isOva, setIsOva] = useState(true);
+  const [isOna, setIsOna] = useState(true);
+  const [isSpecial, setIsSpecial] = useState(true);
+  const [isMusic, setIsMusic] = useState(true);
+  const [isUnknown, setIsUnknown] = useState(true);
 
   const dispatch = useDispatch();
 
